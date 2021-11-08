@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateUserComponent } from './views/create-user/create-user.component';
 import { UserTypesComponent } from './views/user-types/user-types.component';
 import { UsersComponent } from './views/users/users.component';
 
@@ -13,6 +14,13 @@ const routes: Routes = [
     component: UsersComponent,
     data: {
       title: 'Users Management',
+    }
+  },
+  {
+    path: 'users/create',
+    component: CreateUserComponent,
+    data: {
+      title: 'Create user',
     }
   },
   {

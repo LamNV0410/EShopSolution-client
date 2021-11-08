@@ -17,7 +17,7 @@ File: scss
  *	8. Custom Templates
  */
 
-@use '~@angular/material' as mat;
+@use "~@angular/material" as mat;
 @import "variable";
 
 @import "icons/themify-icons/themify-icons.css";
@@ -35,7 +35,10 @@ File: scss
 @import "dark-sidebar";
 @import "responsive";
 @import "rtl";
-
+@import "mat-card";
+@import "mat-icon";
+@import "table";
+@import "div";
 // Red Theme
 
 .danger {
@@ -60,11 +63,11 @@ File: scss
 // Dark Theme
 
 .dark {
-	.mat-drawer-container {
-		color: #8999a0 !important;
-	}
-  	@import "colors/dark";
-  	@include mat.all-component-themes($dark-theme);
+  .mat-drawer-container {
+    color: #8999a0 !important;
+  }
+  @import "colors/dark";
+  @include mat.all-component-themes($dark-theme);
 }
 
 $custom-typography: mat.define-typography-config(

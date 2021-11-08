@@ -8,21 +8,32 @@ import {
   AccordionLinkDirective,
   AccordionDirective
 } from './accordion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
   ],
   imports: [
     DemoMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    NgxDropzoneModule
   ],
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
     DemoMaterialModule,
-    AccordionDirective
+    AccordionDirective,
+    FormsModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    NgxDropzoneModule
   ],
   providers: [MenuItems, HorizontalMenuItems]
 })

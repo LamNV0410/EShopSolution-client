@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public getTokenInfo(): InfoIdentity {
-    let data = {};
+    let data: any = {};
     if (!this.session.token) {
       return data;
     }
@@ -35,7 +35,8 @@ export class AuthService {
     data = jwt_decode(this.session.token);
 
     let tokenInfo: InfoIdentity = new UserIdentity();
-
+    tokenInfo.userId = data.UID
+    tokenInfo.fullName = data.FNE
     return tokenInfo;
   }
 

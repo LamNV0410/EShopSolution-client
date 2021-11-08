@@ -4,11 +4,14 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vertical-sidebar',
@@ -16,7 +19,7 @@ import { MenuItems } from '../../../shared/menu-items/menu-items';
   styleUrls: []
 })
 
-export class VerticalAppSidebarComponent implements OnDestroy {
+export class VerticalAppSidebarComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   mobileQuery: MediaQueryList;
 
@@ -24,6 +27,7 @@ export class VerticalAppSidebarComponent implements OnDestroy {
   @Input() showClass: boolean = false;
   @Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>()
 
+  name!: string;
 
   private _mobileQueryListener: () => void;
   status = true;
@@ -39,7 +43,7 @@ export class VerticalAppSidebarComponent implements OnDestroy {
       this.showMenu = element;
     }
   }
-  
+
   subclickEvent(): void {
     this.status = true;
   }
@@ -53,22 +57,30 @@ export class VerticalAppSidebarComponent implements OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    private _authService: AuthService,
+    private router: Router
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
-
+  ngOnInit(): void {
+    this.name = this._authService.getTokenInfo().fullName ?? '';
+  }
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   handleNotify() {
-    if(window.innerWidth < 1024){
+    if (window.innerWidth < 1024) {
       this.notify.emit(!this.showClass);
     }
+  }
+  onLogOut() {
+    this._authService.logout();
+    this.router.navigate(['/authentication/login']);
   }
 }

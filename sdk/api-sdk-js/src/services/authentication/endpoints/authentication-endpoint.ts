@@ -5,8 +5,8 @@ import { UserLoginResponse } from "../responses/user-login-response";
 
 export class AuthenticationEndpoint {
     // TODO : Endpoint :
-    endpoint = 'api/v1/auth/login';
-    private baseUrl: string = '';
+    endpoint = 'api/v1/authentication/login';
+    private baseUrl: string = 'https://localhost:44340';
     /**
      *
      */
