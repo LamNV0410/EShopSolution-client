@@ -38,4 +38,18 @@ export class UsersEndpoint {
                 });
         });
     }
+
+    getById(id: string): Promise<User> {
+        let endpoint: string = `${id}`;
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.baseUrl}${endpoint}`)
+                .then((res: AxiosResponse<User>) => {
+                    resolve(res.data);
+                })
+                .catch((error: AxiosError) => {
+                    console.error(error);
+                    reject(error.response?.data);
+                });
+        });
+    }
 }

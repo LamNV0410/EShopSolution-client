@@ -1,9 +1,9 @@
-<div class="wrapper-component" [hidden]='!isHasData'>
+<div class="wrapper-component">
     <mat-card class="wrapper-card">
         <div>
             <button mat-raised-button color="primary" (click)="addCategoryHandleClick()">
                 <span class="material-icons-outlined custom-icon">
-                    add_circle
+                    {{createIcon}}
                 </span>Create new Category</button>
         </div>
     </mat-card>
@@ -46,11 +46,11 @@
                     <td mat-cell *matCellDef="let element" class="mat-column-action">
                         <span class="material-icons-outlined custom-icon"
                             (click)="onEditCategoryHandleClick(element.id)">
-                            mode_edit_outline
+                            {{editIcon}}
                         </span>
                         <span class="material-icons-outlined custom-icon"
                             (click)="onDeleteCategoryHandleClick(element.id)">
-                            delete_outline
+                            {{deleteIcon}}
                         </span>
                     </td>
                 </ng-container>

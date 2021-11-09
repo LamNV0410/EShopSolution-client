@@ -52,12 +52,14 @@ export class AddCategoryDialogComponent implements OnInit {
             this._snackBar.open('Success!!', 'Ok', {
               horizontalPosition: this.horizontalPosition,
               verticalPosition: this.verticalPosition,
+              duration: 3000
             });
             this.dialogRef.close(true);
           } else {
             this._snackBar.open('Fail!!', 'Ok', {
               horizontalPosition: this.horizontalPosition,
               verticalPosition: this.verticalPosition,
+              duration: 3000
             });
           }
         })

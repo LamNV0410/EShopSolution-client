@@ -1,0 +1,86 @@
+<div fxLayout="row" class="wrapper-component">
+    <form [formGroup]="userInfor" (ngSubmit)="onSubmit()">
+        <mat-card fxFlex='50' class="wrapper-card" style="padding: 40px!important;">
+            <div fxLayoutAlign="center center" class="header-tilte">
+                Information Users !!!
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Type Role</mat-label>
+                <mat-select formControlName="typeRoleId">
+                    <mat-option value="ADM">Admin</mat-option>
+                    <mat-option value="ACC">Acountant</mat-option>
+                    <mat-option value="EMP">Employee</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput required formControlName="firstName">
+                <mat-error *ngIf="firstName.hasError('required') && firstName.touched" class="text-danger support-text">
+                    First Name is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput required formControlName="lastName">
+                <mat-error *ngIf="lastName.hasError('required') && lastName.touched" class="text-danger support-text">
+                    Last Name is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>User Name</mat-label>
+                <input matInput required formControlName="userName">
+                <mat-error *ngIf="userName.hasError('required') && userName.touched" class="text-danger support-text">
+                    User Name is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput required formControlName="password">
+                <mat-error *ngIf="password.hasError('required') && password.touched" class="text-danger support-text">
+                    Password is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput required formControlName="email">
+                <mat-error *ngIf="email.hasError('required') && email.touched" class="text-danger support-text">
+                    Email is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option value="MALE">Male</mat-option>
+                    <mat-option value="FEMALE">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address">
+            </mat-form-field>
+        </mat-card>
+        <mat-card fxFlex='50' class="wrapper-card">
+            <div fxLayoutAlign="center center" class="header-tilte">
+                Avatar !!!
+            </div>
+            <ngx-dropzone (change)="onSelect($event)" class="dropzone">
+                <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files" [multiple]='false' [removable]="true"
+                    class="dropzone-preview" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+            <div class="dropzone-preview-image">
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    class="dropzone-image-preview">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </div>
+            <div class="footer-action-btn">
+                <button mat-stroked-button type="button">Cancel</button>
+                <button mat-raised-button color="primary" type="submit">Save</button>
+            </div>
+        </mat-card>
+    </form>
+</div>

@@ -9,5 +9,9 @@ export interface User {
 
     userName: string;
     password?: string;
-    role: string;
+    typeRoleId?: string;
+    typeRole: string;
+
+    permissionRoleId?: string;
+    permissionRole?: string;
 }

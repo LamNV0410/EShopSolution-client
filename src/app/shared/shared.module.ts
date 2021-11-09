@@ -23,7 +23,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
   ],
   exports: [
     AccordionAnchorDirective,

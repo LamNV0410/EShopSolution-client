@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryEndpoint } from 'sdk/api-sdk-js/src/services/category/endpoints/category-endpoints';
 import { Category } from 'sdk/api-sdk-js/src/services/category/models/category';
 import { GetCategoriesRequest } from 'sdk/api-sdk-js/src/services/category/requests/get-categories-request';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { SNACKBAR_HORIZALPOSITION, SNACKBAR_VERTICALPOSITION } from 'src/app/features/common-const/eshop-common';
+import { EShopMessageCommon } from 'src/app/features/common-const/eshop-messages-common-const';
 import { AddCategoryDialogComponent } from '../../components/add-category-dialog/add-category-dialog.component';
 import { EditCategoryDialogComponent } from '../../components/edit-category-dialog/edit-category-dialog.component';
 
@@ -15,13 +18,16 @@ import { EditCategoryDialogComponent } from '../../components/edit-category-dial
 })
 export class CategoriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  createIcon: string = `add_circle`
+  editIcon: string = `mode_edit_outline`;
+  deleteIcon: string = `delete_outline`;
   private categoriesEndpoint!: CategoryEndpoint;
   private request!: GetCategoriesRequest;
   public isHasData: boolean = false;
   constructor(
     public dialog: MatDialog,
-    public _authSevice: AuthService
+    public _authSevice: AuthService,
+    private _snackbar: MatSnackBar
   ) {
     this.request = { sortField: 'CRE', sortDirection: 'DESC', page: 0, size: 10 }
   }
@@ -74,6 +80,17 @@ export class CategoriesComponent implements OnInit {
       })
       .then(() => {
         this.isHasData = true;
+      })
+      .catch(err => {
+        this._snackbar
+          .open(
+            EShopMessageCommon.MESSAGE_WRONG_SERVER_ERROR,
+            EShopMessageCommon.MESSAGE_BUTTON_CONFIRM,
+            {
+              horizontalPosition: SNACKBAR_HORIZALPOSITION,
+              verticalPosition: SNACKBAR_VERTICALPOSITION,
+            });
+
       })
   }
 

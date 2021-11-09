@@ -34,6 +34,9 @@ import { SpinnerComponent } from './shared/spinner.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { OrdersComponent } from './features/orders-management/views/orders/orders.component';
+import { OrderDetailsComponent } from './features/orders-management/views/order-details/order-details.component';
+import { OrderDetailComponent } from './features/orders-management/views/order-detail/order-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient): any {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -58,6 +61,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AppBreadcrumbComponent,
         HorizontalAppHeaderComponent,
         HorizontalAppSidebarComponent,
+        OrdersComponent,
+        OrderDetailsComponent,
+        OrderDetailComponent,
     ],
     imports: [
         BrowserModule,
