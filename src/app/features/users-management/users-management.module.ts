@@ -8,7 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UsersManagementComponent } from './users-management.component';
 import { EditUserComponent } from './views/edit-user/edit-user.component';
 import { CreateUserComponent } from './views/create-user/create-user.component';
-import { EditUserTypeComponent } from './views/edit-user-type/edit-user-type.component';
+import { CreateUsertypeDialogComponent } from './components/create-usertype-dialog/create-usertype-dialog.component';
+import { EditUsertypeDialogComponent } from './components/edit-usertype-dialog/edit-usertype-dialog.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EditUserTypeComponent } from './views/edit-user-type/edit-user-type.com
     CreateUserComponent,
     UsersManagementComponent,
     EditUserComponent,
-    EditUserTypeComponent,
+    CreateUsertypeDialogComponent,
+    EditUsertypeDialogComponent,
   ],
   imports: [
     CommonModule,

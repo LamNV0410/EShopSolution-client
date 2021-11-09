@@ -54,4 +54,18 @@ export class UserTypeEndpoint {
         });
     }
 
+    getById(id: string): Promise<UserType> {
+        let endpoint: string = `${id}`;
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.baseUrl}${endpoint}`)
+                .then((res: AxiosResponse<UserType>) => {
+                    resolve(res.data);
+                })
+                .catch((error: AxiosError) => {
+                    console.error(error);
+                    reject(error.response?.data);
+                });
+        });
+    }
+
 }

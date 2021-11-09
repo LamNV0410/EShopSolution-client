@@ -41,6 +41,9 @@ File: scss
 @import "div";
 @import "form_field";
  // Red Theme
+ body{
+   font-size: 16px;
+ }
 .danger {
   @import "colors/red";
   @include mat.all-component-themes($red-app-theme);

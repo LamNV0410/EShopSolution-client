@@ -1,0 +1,24 @@
+<div class="wrapper-component user-type">
+    <form [formGroup]=" createUserType" (ngSubmit)="onSubmit()">
+        <div class="header-title">Create UserType !!</div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter usertype</mat-label>
+                <input matInput formControlName='userTypeName' required>
+                <mat-error *ngIf="userTypeName?.hasError('required')">{{messageRequired}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Usertype level Default</mat-label>
+                <mat-select formControlName="userTypeRoleId" name="food">
+                    <mat-option *ngFor="let userTyperRole of userTyperRoles" [value]="userTyperRole.id">
+                        {{userTyperRole.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="footer-action-btn">
+            <button mat-button mat-dialog-close>Close</button>
+            <button mat-raised-button color='primary' type="submit">Save</button>
+        </div>
+    </form>
+</div>
