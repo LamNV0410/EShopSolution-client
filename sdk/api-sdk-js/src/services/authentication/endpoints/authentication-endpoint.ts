@@ -1,12 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BaseUrl } from "../../../../configurations/base-url";
+import { ESHOP } from "../../../core/eshop";
 import { UserLoginRequest } from "../requests/user-login-request";
 import { UserLoginResponse } from "../responses/user-login-response";
 
 export class AuthenticationEndpoint {
     // TODO : Endpoint :
     endpoint = 'api/v1/authentication/login';
-    private baseUrl: string = 'https://localhost:44340';
+    private baseUrl: string = ESHOP.options.apiBaseUrls.authenticationUrl;
     /**
      *
      */

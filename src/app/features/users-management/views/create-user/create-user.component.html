@@ -4,11 +4,13 @@
             <div fxLayoutAlign="center center" class="header-tilte">
                 Information Users !!!
             </div>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" (click)='onUserTypeSelectHandleClick()'>
                 <mat-label>Role</mat-label>
-                <mat-select formControlName="gender">
-                    <mat-option value="MALE">Male</mat-option>
-                    <mat-option value="FEMALE">Female</mat-option>
+                <mat-select formControlName="role">
+                    <mat-option value="">--select a value--</mat-option>
+                    <mat-option *ngFor="let userType of userTypes" [value]="userType.id">
+                        {{userType.typeName}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -50,8 +52,8 @@
             <mat-form-field appearance="outline">
                 <mat-label>Gender</mat-label>
                 <mat-select formControlName="gender">
-                    <mat-option value="MALE">Male</mat-option>
-                    <mat-option value="FEMALE">Female</mat-option>
+                    <mat-option value="1">Male</mat-option>
+                    <mat-option value="0">Female</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">

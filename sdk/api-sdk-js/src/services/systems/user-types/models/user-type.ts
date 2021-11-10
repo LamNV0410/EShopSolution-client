@@ -2,7 +2,7 @@ export interface UserType {
     id?: string;
     name?: string;
     typeRole?: string
-    typeRoleId?: string;
+    userTypeRoleId?: string;
     permissionRole?: string;
     createdDate?: string;
 }

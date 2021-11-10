@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserTypeEndpoint } from 'sdk/api-sdk-js/src/services/systems/user-types/endpoints/user-type-endpoint';
+import { UserType } from 'sdk/api-sdk-js/src/services/systems/user-types/models/user-type';
 import { UsersEndpoint } from 'sdk/api-sdk-js/src/services/systems/users/endpoints/users-endpoint';
 import { User } from 'sdk/api-sdk-js/src/services/systems/users/models/user';
 
@@ -11,8 +12,10 @@ import { User } from 'sdk/api-sdk-js/src/services/systems/users/models/user';
 })
 export class CreateUserComponent implements OnInit {
   files: File[] = [];
+  userTypes!: UserType[]
   usersEnpoint!: UsersEndpoint;
   userTypeEndpoint!: UserTypeEndpoint;
+  isFirstLoadUserTypes: boolean = true;
   constructor(
     private formbuilder: FormBuilder
   ) {
@@ -50,7 +53,10 @@ export class CreateUserComponent implements OnInit {
         password: this.password.value,
         firstName: this.firstName.value,
         lastName: this.lastName.value,
-        typeRole: this.role.value
+        address: this.address.value,
+        phoneNumber: this.phoneNumber.value,
+        email: this.email.value,
+        typeRoleId: this.role.value
       }
       this.usersEnpoint
         .create(user)
@@ -70,6 +76,18 @@ export class CreateUserComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  public onUserTypeSelectHandleClick() {
+    if (this.isFirstLoadUserTypes) {
+      this.userTypeEndpoint
+        .getAllUserTypesSelect()
+        .then(res => {
+          console.log(`user type response`, res)
+          this.userTypes = res;
+          this.isFirstLoadUserTypes = false;
+        })
+    }
+
+  }
   private generateEndpoint() {
     this.usersEnpoint = new UsersEndpoint();
     this.userTypeEndpoint = new UserTypeEndpoint();

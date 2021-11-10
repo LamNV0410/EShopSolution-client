@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserTypeEndpoint } from 'sdk/api-sdk-js/src/services/systems/user-types/endpoints/user-type-endpoint';
 import { UserType } from 'sdk/api-sdk-js/src/services/systems/user-types/models/user-type';
+import { UserTypeRole } from 'sdk/api-sdk-js/src/services/systems/user-types/models/user-type-role';
 import { SNACKBAR_HORIZALPOSITION, SNACKBAR_VERTICALPOSITION } from 'src/app/features/common-const/eshop-common';
 import { EShopMessageCommon } from 'src/app/features/common-const/eshop-messages-common-const';
 
@@ -22,7 +23,7 @@ export class CreateUsertypeDialogComponent implements OnInit {
 
   get userTypeName() { return this.createUserType.get('userTypeName') };
   get userTypeRoleId() { return this.createUserType.get('userTypeRoleId') };
-  userTyperRoles: UserType[] = []
+  userTyperRoles: UserTypeRole[] = []
   constructor(
     public dialogRef: MatDialogRef<CreateUsertypeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,12 +32,12 @@ export class CreateUsertypeDialogComponent implements OnInit {
   ) { this.dialogRef.disableClose = true }
 
   ngOnInit() {
-    this.userTyperRoles.push({ id: 'f7df7951-258e-43ea-905b-07cf368815a4', name: 'Employee', typeRole: 'SUPER' });
     this.genrerateEndpoint();
+    this.getData();
   }
   onSubmit() {
     if (this.createUserType.valid) {
-      let usertype: UserType = { name: this.userTypeName?.value, typeRole: this.userTypeRoleId?.value }
+      let usertype: UserType = { name: this.userTypeName?.value, userTypeRoleId: this.userTypeRoleId?.value }
       this.userTypeEndpoint
         .create(usertype)
         .then(res => {
@@ -59,6 +60,14 @@ export class CreateUsertypeDialogComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  private getData() {
+    this.userTypeEndpoint
+      .getAllUserTypeRolesSelect('')
+      .then(res => {
+        console.log(res);
+        this.userTyperRoles = res;
+      });
   }
   private genrerateEndpoint() {
     this.userTypeEndpoint = new UserTypeEndpoint();

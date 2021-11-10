@@ -2,7 +2,7 @@ var BaseUrl = /** @class */ (function () {
     function BaseUrl() {
     }
     BaseUrl.getBaseUrl = function () {
-        return 'https://localhost:44340';
+        return 'http://localhost:50000';
     };
     return BaseUrl;
 }());

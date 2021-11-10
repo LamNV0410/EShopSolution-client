@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginatorResponse } from "../../../core/api/responses/PaginatorResponse";
+import { ESHOP } from "../../../core/eshop";
 import { Category } from "../models/category";
 import { GetCategoriesRequest } from "../requests/get-categories-request";
 import { CategoryAPI } from "./category-api";
@@ -8,7 +9,7 @@ export class CategoryEndpoint implements CategoryAPI {
     /**
      *  
      */
-    private baseUrl: string = 'http://localhost:58910'
+    private baseUrl: string = ESHOP.options.apiBaseUrls.productUrl
     constructor() {
         this.baseUrl += '/api/v1/categories'
     }

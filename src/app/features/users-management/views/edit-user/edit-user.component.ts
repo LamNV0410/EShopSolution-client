@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserTypeEndpoint } from 'sdk/api-sdk-js/src/services/systems/user-types/endpoints/user-type-endpoint';
+import { UserType } from 'sdk/api-sdk-js/src/services/systems/user-types/models/user-type';
 import { UsersEndpoint } from 'sdk/api-sdk-js/src/services/systems/users/endpoints/users-endpoint';
 import { User } from 'sdk/api-sdk-js/src/services/systems/users/models/user';
+import { UserDTO } from 'sdk/api-sdk-js/src/services/systems/users/responses/user-dto';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,8 +16,9 @@ export class EditUserComponent implements OnInit {
   files: File[] = [];
   usersEnpoint!: UsersEndpoint;
   userTypeEndpoint!: UserTypeEndpoint;
+  userTypes!: UserType
   id: string = '';
-  user!: User;
+  user!: UserDTO;
   constructor(
     private formbuilder: FormBuilder,
     private _router: ActivatedRoute
@@ -23,10 +26,10 @@ export class EditUserComponent implements OnInit {
 
   }
   userInfor = this.formbuilder.group({
-    firstName: new FormControl(null, [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     userName: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl(''),
     address: new FormControl(''),
     email: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
@@ -47,11 +50,13 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.generateEndpoint();
     this.getParams();
-    this.intitialValues();
+
   }
 
   ngAfterViewInit() {
-    this.renderViews();
+    this.intitialValues();
+  }
+  ngAfterContentInit() {
   }
 
   onSubmit() {
@@ -82,13 +87,24 @@ export class EditUserComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  public onUserTypeSelectHandleClick() {
+
+  }
   private intitialValues() {
     this.usersEnpoint
       .getById(this.id)
       .then(res => {
         if (res) {
           this.user = res;
+          return new Promise((res, err) => {
+            res(this.user);
+          });
+          //this.userInfor.get('firstName')?.setValue(res.firstName);
+
         }
+      })
+      .then((res) => {
+        this.renderViews(res);
       })
       .catch(error => {
         // TODO : Not found
@@ -96,8 +112,15 @@ export class EditUserComponent implements OnInit {
       });
   }
 
-  private renderViews() {
-    this.userInfor.setValue(this.user);
+  private renderViews(value: any) {
+    this.userInfor.get('firstName')?.setValue(value.firstName);
+    this.userInfor.get('lastName')?.setValue(value.lastName);
+    this.userInfor.get('userName')?.setValue(value.userName);
+    this.userInfor.get('email')?.setValue(value.email);
+    this.userInfor.get('phoneNumber')?.setValue(value.phoneNumber);
+    this.userInfor.get('gender')?.setValue(value.gender);
+    console.log(value.gender);
+    this.userInfor.get('address')?.setValue(value.address);
   }
   private generateEndpoint() {
     this.usersEnpoint = new UsersEndpoint();

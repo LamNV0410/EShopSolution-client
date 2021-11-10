@@ -1,15 +1,18 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginatorResponse } from "../../../../core/api/responses/PaginatorResponse";
+import { ESHOP } from "../../../../core/eshop";
 import { UserType } from "../models/user-type";
+import { UserTypeRole } from "../models/user-type-role";
 import { GetUserTypesPagingRequest } from "../requests/get-user-types-paging-request";
 
 export class UserTypeEndpoint {
     /**
          *  
+ /api​/v1​/UserType​/{id}
          */
-    private baseUrl: string = 'http://localhost:30001'
+    private baseUrl: string = ESHOP.options.apiBaseUrls.systemUrl
     constructor() {
-        this.baseUrl += '/api/v1/users'
+        this.baseUrl += '/api/v1/UserTypes'
     }
     getAllPaging(request: GetUserTypesPagingRequest): Promise<PaginatorResponse<UserType>> {
         let endpoint: string = '';
@@ -40,11 +43,11 @@ export class UserTypeEndpoint {
     }
 
     /** Get for combobox */
-    getAllSelect(request: string): Promise<UserType[]> {
-        let endpoint: string = '';
+    getAllUserTypeRolesSelect(request: string): Promise<UserTypeRole[]> {
+        let endpoint: string = '/actions/usertype-roles-select';
         return new Promise((resolve, reject) => {
             axios.get(`${this.baseUrl}${endpoint}`, { params: request })
-                .then((res: AxiosResponse<UserType[]>) => {
+                .then((res: AxiosResponse<UserTypeRole[]>) => {
                     resolve(res.data);
                 })
                 .catch((error: AxiosError) => {
@@ -54,6 +57,22 @@ export class UserTypeEndpoint {
         });
     }
 
+    getAllUserTypesSelect(): Promise<UserType[]> {
+        let endpoint: string = '/actions/usertypes-select';
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.baseUrl}${endpoint}`)
+                .then((res: AxiosResponse<UserType[]>) => {
+                    resolve(res.data);
+                })
+                .catch((error: AxiosError) => {
+                    console.error(error);
+                    reject(error.response?.data);
+                });
+        });
+    }
+    /**
+        *   /api​/v1​/UserType​/{id}
+            */
     getById(id: string): Promise<UserType> {
         let endpoint: string = `${id}`;
         return new Promise((resolve, reject) => {

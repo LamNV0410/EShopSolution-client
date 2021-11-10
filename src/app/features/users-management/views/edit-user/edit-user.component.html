@@ -1,15 +1,16 @@
 <div fxLayout="row" class="wrapper-component">
     <form [formGroup]="userInfor" (ngSubmit)="onSubmit()">
-        <mat-card fxFlex='50' class="wrapper-card" style="padding: 40px!important;">
+        <mat-card fxFlex='50' class="wrapper-card">
             <div fxLayoutAlign="center center" class="header-tilte">
                 Information Users !!!
             </div>
-            <mat-form-field appearance="outline">
-                <mat-label>Type Role</mat-label>
-                <mat-select formControlName="typeRoleId">
-                    <mat-option value="ADM">Admin</mat-option>
-                    <mat-option value="ACC">Acountant</mat-option>
-                    <mat-option value="EMP">Employee</mat-option>
+            <mat-form-field appearance="outline" (click)='onUserTypeSelectHandleClick()'>
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="typeRole">
+                    <mat-option value="">--select a value--</mat-option>
+                    <mat-option *ngFor="let userType of userTypes" [value]="userType.id">
+                        {{userType.typeName}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -33,9 +34,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput required formControlName="password">
-                <mat-error *ngIf="password.hasError('required') && password.touched" class="text-danger support-text">
-                    Password is required.</mat-error>
+                <input matInput formControlName="password" placeholder="Empty when u do not change it">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
@@ -50,9 +49,9 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Gender</mat-label>
-                <mat-select formControlName="gender">
-                    <mat-option value="MALE">Male</mat-option>
-                    <mat-option value="FEMALE">Female</mat-option>
+                <mat-select formControlName="gender" [value]='gender.value'>
+                    <mat-option [value]='1'>Male</mat-option>
+                    <mat-option [value]='0'>Female</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">

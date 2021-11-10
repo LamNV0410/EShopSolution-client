@@ -1,6 +1,6 @@
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -31,12 +31,14 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { mailService, mailGlobalVariable } from './apps/mailbox/mail.service';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { OrdersComponent } from './features/orders-management/views/orders/orders.component';
 import { OrderDetailsComponent } from './features/orders-management/views/order-details/order-details.component';
 import { OrderDetailComponent } from './features/orders-management/views/order-detail/order-detail.component';
+import { CoreModule } from './core/core.module';
+import { AppConfigService } from 'sdk/api-sdk-js/src/services/app-config.service';
+import { ESHOP } from 'sdk/api-sdk-js/src/core/eshop';
 
 export function HttpLoaderFactory(http: HttpClient): any {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -70,6 +72,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         BrowserAnimationsModule,
         DemoMaterialModule,
         FormsModule,
+        CoreModule,
         FlexLayoutModule,
         HttpClientModule,
         PerfectScrollbarModule,
@@ -87,6 +90,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ],
     providers: [
         {
+            provide: ESHOP,
+        }, {
+            provide: APP_INITIALIZER, useFactory: AppInitializeService, deps: [AppConfigService], multi: true
+        },
+        {
+
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         }, mailService, mailGlobalVariable,
@@ -95,3 +104,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function AppInitializeService(configService: AppConfigService) {
+    return (): Promise<any> => {
+        return configService.init();
+    }
+}

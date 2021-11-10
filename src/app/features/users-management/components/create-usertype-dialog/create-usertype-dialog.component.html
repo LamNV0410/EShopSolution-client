@@ -11,7 +11,7 @@
                 <mat-label>Usertype level Default</mat-label>
                 <mat-select formControlName="userTypeRoleId" name="food">
                     <mat-option *ngFor="let userTyperRole of userTyperRoles" [value]="userTyperRole.id">
-                        {{userTyperRole.name}}
+                        {{userTyperRole.userTypeRoleName}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
