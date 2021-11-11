@@ -16,7 +16,7 @@ export class EditUserComponent implements OnInit {
   files: File[] = [];
   usersEnpoint!: UsersEndpoint;
   userTypeEndpoint!: UserTypeEndpoint;
-  userTypes!: UserType
+  userTypes!: UserType[]
   id: string = '';
   user!: UserDTO;
   constructor(
@@ -33,7 +33,7 @@ export class EditUserComponent implements OnInit {
     address: new FormControl(''),
     email: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    typeRole: new FormControl('', [Validators.required]),
+    userTypeId: new FormControl('', [Validators.required]),
     gender: new FormControl(''),
   });
 
@@ -41,11 +41,11 @@ export class EditUserComponent implements OnInit {
   get lastName() { return this.userInfor.controls['lastName'] };
   get userName() { return this.userInfor.controls['userName'] };
   get password() { return this.userInfor.controls['password'] };
-  get address() { return this.userInfor.controls['firstNaaddressme'] };
+  get address() { return this.userInfor.controls['address'] };
   get email() { return this.userInfor.controls['email'] };
   get phoneNumber() { return this.userInfor.controls['phoneNumber'] };
   get gender() { return this.userInfor.controls['gender'] };
-  get typeRoleId() { return this.userInfor.controls['typeRole'] };
+  get userTypeId() { return this.userInfor.controls['userTypeId'] };
 
   ngOnInit(): void {
     this.generateEndpoint();
@@ -54,6 +54,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.getUserTypeSelect();
     this.intitialValues();
   }
   ngAfterContentInit() {
@@ -66,11 +67,15 @@ export class EditUserComponent implements OnInit {
         password: this.password.value,
         firstName: this.firstName.value,
         lastName: this.lastName.value,
-        typeRoleId: this.typeRoleId.value,
-        typeRole: this.typeRoleId.value
+        phoneNumber: this.phoneNumber.value,
+        email: this.email.value,
+        address: this.address.value,
+        gender: this.gender.value,
+        userTypeId: this.userTypeId.value,
+        typeRole: this.userTypeId.value
       }
       this.usersEnpoint
-        .create(user)
+        .edit(this.id, user)
         .then(res => {
           console.log("create user", res);
         });
@@ -99,8 +104,6 @@ export class EditUserComponent implements OnInit {
           return new Promise((res, err) => {
             res(this.user);
           });
-          //this.userInfor.get('firstName')?.setValue(res.firstName);
-
         }
       })
       .then((res) => {
@@ -112,6 +115,13 @@ export class EditUserComponent implements OnInit {
       });
   }
 
+  private getUserTypeSelect() {
+    this.userTypeEndpoint
+      .getAllUserTypesSelect()
+      .then(res => {
+        this.userTypes = res;
+      })
+  }
   private renderViews(value: any) {
     this.userInfor.get('firstName')?.setValue(value.firstName);
     this.userInfor.get('lastName')?.setValue(value.lastName);
@@ -119,8 +129,8 @@ export class EditUserComponent implements OnInit {
     this.userInfor.get('email')?.setValue(value.email);
     this.userInfor.get('phoneNumber')?.setValue(value.phoneNumber);
     this.userInfor.get('gender')?.setValue(value.gender);
-    console.log(value.gender);
     this.userInfor.get('address')?.setValue(value.address);
+    this.userInfor.get('userTypeId')?.setValue(value.userTypeId);
   }
   private generateEndpoint() {
     this.usersEnpoint = new UsersEndpoint();

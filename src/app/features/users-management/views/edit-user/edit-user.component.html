@@ -6,7 +6,7 @@
             </div>
             <mat-form-field appearance="outline" (click)='onUserTypeSelectHandleClick()'>
                 <mat-label>Role</mat-label>
-                <mat-select formControlName="typeRole">
+                <mat-select formControlName="userTypeId">
                     <mat-option value="">--select a value--</mat-option>
                     <mat-option *ngFor="let userType of userTypes" [value]="userType.id">
                         {{userType.typeName}}

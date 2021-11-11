@@ -8,10 +8,10 @@ export interface User {
     email?: string;
     createdDate?: Date;
     createdBy?: string;
-
+    gender: number;
     userName: string;
     password?: string;
-    typeRoleId: string;
+    userTypeId: string;
     typeRole?: string;
 
     permissionRoleId?: string;

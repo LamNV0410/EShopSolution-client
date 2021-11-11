@@ -8,6 +8,7 @@ import { GetUserTypesPagingRequest } from 'sdk/api-sdk-js/src/services/systems/u
 import { ELEMENT_DATA } from 'src/app/data-fake/table-data-fake';
 import { PeriodicElement } from 'src/app/data-fake/table-model';
 import { CreateUsertypeDialogComponent } from '../../components/create-usertype-dialog/create-usertype-dialog.component';
+import { EditUsertypeDialogComponent } from '../../components/edit-usertype-dialog/edit-usertype-dialog.component';
 
 @Component({
   selector: 'app-user-types',
@@ -28,18 +29,18 @@ export class UserTypesComponent implements OnInit {
     this.generateEndpoint();
     this.getData();
   }
-  displayedColumns: string[] = ['position', 'name', 'userTypeRoleName','createdDate', 'action'];
+  displayedColumns: string[] = ['position', 'name', 'userTypeRoleName', 'createdDate', 'action'];
   dataSource = new MatTableDataSource<UserType>();
 
   public addUserTypeHandleClick() {
-    this.openDialog();
+    this.openCreateDialog();
 
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  public onEditUserTypeHandleClick() {
-
+  public onEditUserTypeHandleClick(id: string) {
+    this.openEditDialogs(id)
   }
   public onDeleteUserTypeHandleClick() {
 
@@ -55,15 +56,28 @@ export class UserTypesComponent implements OnInit {
   private generateEndpoint() {
     this.userTypeEndpoint = new UserTypeEndpoint();
   }
-  private openDialog(): void {
+  private openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateUsertypeDialogComponent, {
       width: '550px',
       data: {},
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      if (result) {
+        this.getData();
+      }
+    });
+  }
+  private openEditDialogs(id: string): void {
+    const dialogRef = this.dialog.open(EditUsertypeDialogComponent, {
+      width: '550px',
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getData();
+      }
     });
   }
 }

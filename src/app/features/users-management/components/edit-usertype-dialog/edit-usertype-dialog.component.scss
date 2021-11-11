@@ -1,0 +1,19 @@
+.footer-action-btn {
+    margin-right: 20px;
+}
+.footer-action-btn:last-child {
+    margin-right: 0px;
+}
+.usertype {
+    width: 100%;
+}
+.footer-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 40px;
+}
+.user-type {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}

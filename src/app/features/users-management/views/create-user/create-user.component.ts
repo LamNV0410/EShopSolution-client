@@ -37,7 +37,7 @@ export class CreateUserComponent implements OnInit {
   get lastName() { return this.createUser.controls['lastName'] };
   get userName() { return this.createUser.controls['userName'] };
   get password() { return this.createUser.controls['password'] };
-  get address() { return this.createUser.controls['firstNaaddressme'] };
+  get address() { return this.createUser.controls['address'] };
   get email() { return this.createUser.controls['email'] };
   get phoneNumber() { return this.createUser.controls['phoneNumber'] };
   get gender() { return this.createUser.controls['gender'] };
@@ -56,7 +56,8 @@ export class CreateUserComponent implements OnInit {
         address: this.address.value,
         phoneNumber: this.phoneNumber.value,
         email: this.email.value,
-        typeRoleId: this.role.value
+        gender:this.gender.value,
+        userTypeId: this.role.value
       }
       this.usersEnpoint
         .create(user)

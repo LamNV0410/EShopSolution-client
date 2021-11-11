@@ -6,7 +6,7 @@ export interface UserDTO {
     address: string
     phoneNumber: string
     gender: number
-    userTypeRoleId: string
+    userTypeId: string
     userTypeRoleName: string
     email: string
     userTypeName: string

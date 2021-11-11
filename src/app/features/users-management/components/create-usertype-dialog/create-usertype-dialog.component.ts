@@ -37,7 +37,7 @@ export class CreateUsertypeDialogComponent implements OnInit {
   }
   onSubmit() {
     if (this.createUserType.valid) {
-      let usertype: UserType = { name: this.userTypeName?.value, userTypeRoleId: this.userTypeRoleId?.value }
+      let usertype: UserType = { typeName: this.userTypeName?.value, userTypeRoleId: this.userTypeRoleId?.value }
       this.userTypeEndpoint
         .create(usertype)
         .then(res => {

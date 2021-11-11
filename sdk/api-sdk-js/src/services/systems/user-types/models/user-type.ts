@@ -1,6 +1,6 @@
 export interface UserType {
     id?: string;
-    name?: string;
+    typeName?: string;
     typeRole?: string
     userTypeRoleId?: string;
     permissionRole?: string;

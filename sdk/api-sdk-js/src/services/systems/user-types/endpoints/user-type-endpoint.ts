@@ -42,6 +42,20 @@ export class UserTypeEndpoint {
         });
     }
 
+    update(id: string, user: UserType): Promise<UserType> {
+        let endpoint: string = `/${id}`;
+        return new Promise((resolve, reject) => {
+            axios.patch(`${this.baseUrl}${endpoint}`, user)
+                .then((res: AxiosResponse<UserType>) => {
+                    resolve(res.data);
+                })
+                .catch((error: AxiosError) => {
+                    console.error(error);
+                    reject(error.response?.data);
+                });
+        });
+    }
+
     /** Get for combobox */
     getAllUserTypeRolesSelect(request: string): Promise<UserTypeRole[]> {
         let endpoint: string = '/actions/usertype-roles-select';
@@ -74,7 +88,7 @@ export class UserTypeEndpoint {
         *   /api​/v1​/UserType​/{id}
             */
     getById(id: string): Promise<UserType> {
-        let endpoint: string = `${id}`;
+        let endpoint: string = `/${id}`;
         return new Promise((resolve, reject) => {
             axios.get(`${this.baseUrl}${endpoint}`)
                 .then((res: AxiosResponse<UserType>) => {

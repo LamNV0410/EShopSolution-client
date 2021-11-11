@@ -1,5 +1,5 @@
 <div class="wrapper-component user-type">
-    <form [formGroup]=" userTypeInfor" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userTypeInfor" (ngSubmit)="onSubmit()">
         <div class="header-title">Create UserType !!</div>
         <div>
             <mat-form-field appearance="outline">
@@ -9,9 +9,9 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Usertype level Default</mat-label>
-                <mat-select formControlName="userTypeRoleId" name="food">
+                <mat-select formControlName="userTypeRoleId">
                     <mat-option *ngFor="let userTyperRole of userTyperRoles" [value]="userTyperRole.id">
-                        {{userTyperRole.name}}
+                        {{userTyperRole.userTypeRoleName}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

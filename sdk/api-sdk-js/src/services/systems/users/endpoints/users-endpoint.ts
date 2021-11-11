@@ -40,7 +40,19 @@ export class UsersEndpoint {
                 });
         });
     }
-
+    edit(id: string, request: User): Promise<User> {
+        let endpoint: string = `/${id}`;
+        return new Promise((resolve, reject) => {
+            axios.patch(`${this.baseUrl}${endpoint}`, request)
+                .then((res: AxiosResponse<User>) => {
+                    resolve(res.data);
+                })
+                .catch((error: AxiosError) => {
+                    console.error(error);
+                    reject(error.response?.data);
+                });
+        });
+    }
     getById(id: string): Promise<UserDTO> {
         let endpoint: string = `${id}`;
         return new Promise((resolve, reject) => {
