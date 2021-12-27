@@ -1,17 +1,19 @@
 {
-  "name": "api-sdk",
-  "version": "1.0.0",
-  "description": "api decription",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "LAMNV",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "axios": "^0.21.1"
-  }
+    "name": "api-sdk",
+    "version": "1.0.0",
+    "description": "api decription",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "dev": "tsc --w"
+    },
+    "author": "LAMNV",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^4.4.4"
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    }
 }

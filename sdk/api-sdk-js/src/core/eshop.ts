@@ -7,7 +7,8 @@ export class ESHOP {
             systemUrl: `http://localhost:30001`,
             productUrl: `http://localhost:30002`,
             orderService: `http://localhost:30003`,
-            authenticationUrl: `http://localhost:50000`,
+            authenticationUrl: `http://localhost:4444`,
+            authSignalRBaseUrl: `http://localhost:5555`,
         },
         apiKey: '',
         token: ''
@@ -30,13 +31,13 @@ export class ESHOP {
         });
     }
 
-    // public static getConfig() {
-    //     return CLS.options;
-    // }
+    public static getConfig() {
+        return ESHOP.options;
+    }
 
-    // public setToken(token: string) {
-    //     CLS.options.token = token;
-    //}
+    public setToken(token: string) {
+        ESHOP.options.token = token;
+    }
 
     /**
      * extend object

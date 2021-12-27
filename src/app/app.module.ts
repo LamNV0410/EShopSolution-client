@@ -37,8 +37,8 @@ import { OrdersComponent } from './features/orders-management/views/orders/order
 import { OrderDetailsComponent } from './features/orders-management/views/order-details/order-details.component';
 import { OrderDetailComponent } from './features/orders-management/views/order-detail/order-detail.component';
 import { CoreModule } from './core/core.module';
-import { AppConfigService } from 'sdk/api-sdk-js/src/services/app-config.service';
 import { ESHOP } from 'sdk/api-sdk-js/src/core/eshop';
+import { AppConfigService } from './core/services/app-config.service';
 
 export function HttpLoaderFactory(http: HttpClient): any {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');

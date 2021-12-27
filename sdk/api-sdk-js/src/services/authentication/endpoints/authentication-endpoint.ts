@@ -12,7 +12,6 @@ export class AuthenticationEndpoint {
      *
      */
     constructor() {
-        this.baseUrl = BaseUrl.getBaseUrl();
     }
 
     login(request: UserLoginRequest): Promise<UserLoginResponse> {

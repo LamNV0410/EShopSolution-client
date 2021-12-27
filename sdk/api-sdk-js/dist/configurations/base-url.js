@@ -4,6 +4,9 @@ var BaseUrl = /** @class */ (function () {
     BaseUrl.getBaseUrl = function () {
         return 'http://localhost:50000';
     };
+    BaseUrl.getAuthSignalRBaseUrl = function () {
+        return 'http://localhost:5555';
+    };
     return BaseUrl;
 }());
 export { BaseUrl };
