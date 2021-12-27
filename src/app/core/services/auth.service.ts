@@ -41,7 +41,6 @@ export class AuthService {
   }
 
   public getToken(): string {
-    debugger;
     return this.session.token;
   }
 

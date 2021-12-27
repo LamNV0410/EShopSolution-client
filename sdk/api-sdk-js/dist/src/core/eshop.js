@@ -44,7 +44,7 @@ var ESHOP = /** @class */ (function () {
             systemUrl: "http://localhost:30001",
             productUrl: "http://localhost:30002",
             orderService: "http://localhost:30003",
-            authenticationUrl: "http://localhost:50000",
+            authenticationUrl: "http://localhost:4444",
             authSignalRBaseUrl: "http://localhost:5555",
         },
         apiKey: '',

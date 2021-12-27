@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "npm run sdk:build && ng serve",
+        "start": "ng serve",
+        "dev": "npm run sdk:build && ng serve",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",

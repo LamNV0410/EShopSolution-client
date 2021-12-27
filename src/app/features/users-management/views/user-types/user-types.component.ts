@@ -5,8 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserTypeEndpoint } from 'sdk/api-sdk-js/src/services/systems/user-types/endpoints/user-type-endpoint';
 import { UserType } from 'sdk/api-sdk-js/src/services/systems/user-types/models/user-type';
 import { GetUserTypesPagingRequest } from 'sdk/api-sdk-js/src/services/systems/user-types/requests/get-user-types-paging-request';
-import { ELEMENT_DATA } from 'src/app/data-fake/table-data-fake';
-import { PeriodicElement } from 'src/app/data-fake/table-model';
 import { CreateUsertypeDialogComponent } from '../../components/create-usertype-dialog/create-usertype-dialog.component';
 import { EditUsertypeDialogComponent } from '../../components/edit-usertype-dialog/edit-usertype-dialog.component';
 

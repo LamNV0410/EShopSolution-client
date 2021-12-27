@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -18,9 +18,18 @@ import { DeviceInfo } from 'sdk/api-sdk-js/src/services/authentication/models/de
 })
 export class LoginComponent implements OnInit {
   public userLoginHub!: UserLoginHub;
-
+  timeoutTryConnectToSignal!: any;
+  tryNumberClosedSignal: number = 0;
   public authenticationEndpoint!: AuthenticationEndpoint;
   public loginForm: FormGroup = Object.create(null);
+  isReady: boolean = false;
+  public debugHasEvent = {
+    visibleChange: false,
+    beforeunload: false,
+    pagehide: false,
+    pageshow: false,
+    connectionIds: []
+  };
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -33,11 +42,11 @@ export class LoginComponent implements OnInit {
     });
 
     this.generateEndpoint();
-    this.genarateHub();
+    //this.genarateHub();
   }
 
   ngOnDestroy(): void {
-    this.userLoginHub.dispose();
+    // this.userLoginHub.dispose();
   }
 
   onSubmit(): void {
@@ -51,10 +60,6 @@ export class LoginComponent implements OnInit {
         .then(res => {
           if (res) {
             this._authService.setLoginSucess(res.token);
-            var user = this._authService.getTokenInfo();
-            let device: DeviceInfo = { name: 'A', os: 'os', version: 'ver' }
-            let request: any = { userId: user.userId, firstName: 'a', lastName: 'b', deviceInfo: device }
-            this.userLoginHub.joinLogin(request);
             this.router.navigate(['/categories-management']);
           }
         })
@@ -65,11 +70,8 @@ export class LoginComponent implements OnInit {
     // 
   }
 
+
   private generateEndpoint() {
     this.authenticationEndpoint = new AuthenticationEndpoint();
-  }
-
-  private genarateHub() {
-    this.userLoginHub = new UserLoginHub();
   }
 }

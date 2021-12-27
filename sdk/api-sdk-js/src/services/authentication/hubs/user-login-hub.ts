@@ -9,6 +9,7 @@ export class UserLoginHub {
         // this.baseUrl = BaseUrl.getAuthSignalRBaseUrl();
         this.baseUrl += this.endpoint
         var token = ESHOP.getConfig().token;
+        console.log("ESHOP.getConfig().token;", ESHOP.getConfig().token)
 
         this.connection = new signalR.HubConnectionBuilder()
             .withUrl(this.baseUrl, { accessTokenFactory: () => token })

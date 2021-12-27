@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BaseUrl } from "../../../../configurations/base-url";
 import { ESHOP } from "../../../core/eshop";
 var AuthenticationEndpoint = /** @class */ (function () {
     /**
@@ -9,7 +8,6 @@ var AuthenticationEndpoint = /** @class */ (function () {
         // TODO : Endpoint :
         this.endpoint = 'api/v1/authentication/login';
         this.baseUrl = ESHOP.options.apiBaseUrls.authenticationUrl;
-        this.baseUrl = BaseUrl.getBaseUrl();
     }
     AuthenticationEndpoint.prototype.login = function (request) {
         var _this = this;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserLoginHub } from 'sdk/api-sdk-js/src/services/authentication/hubs/user-login-hub';
 import { CategoryEndpoint } from 'sdk/api-sdk-js/src/services/category/endpoints/category-endpoints';
 import { Category } from 'sdk/api-sdk-js/src/services/category/models/category';
 import { GetCategoriesRequest } from 'sdk/api-sdk-js/src/services/category/requests/get-categories-request';
@@ -18,6 +19,7 @@ import { EditCategoryDialogComponent } from '../../components/edit-category-dial
 })
 export class CategoriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  userLoginHub = new UserLoginHub();
   createIcon: string = `add_circle`
   editIcon: string = `mode_edit_outline`;
   deleteIcon: string = `delete_outline`;
@@ -35,6 +37,12 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.generateEndpoint();
     this.getData();
+
+    this.userLoginHub.connection.start().then(function () {  
+      console.log('SignalR Connected!');  
+    }).catch(function (err) {  
+      return console.error(err.toString());  
+    });  
   }
   displayedColumns: string[] = ['position', 'name', 'createdBy', 'description', 'createdDate', 'action'];
   dataSource: Category[] = [];
